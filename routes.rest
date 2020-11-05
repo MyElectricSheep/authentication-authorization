@@ -1,0 +1,41 @@
+GET http://localhost:3000/
+
+###
+
+POST http://localhost:3000/student
+Content-Type: application/json
+
+{
+    "first_name": "Imogen",
+    "last_name": "Drews"
+}
+
+###
+
+GET http://localhost:3000/student
+
+
+###
+
+GET http://localhost:3000/student/5fa3c5f801dc3682eaca4b07
+
+###
+
+PUT http://localhost:3000/student
+Content-Type: application/json
+
+{
+    "old_name": "Drews",
+    "new_name": "Pikachu"
+}
+
+
+###
+
+DELETE http://localhost:3000/student
+Content-Type: application/json
+
+{
+    "condition": "last_name",
+    "value": "Drews"
+}
