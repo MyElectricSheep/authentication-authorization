@@ -6,18 +6,21 @@ POST http://localhost:3000/student
 Content-Type: application/json
 
 {
-    "first_name": "Imogen",
-    "last_name": "Drews"
+    "first_name": "Istayfo",
+    "last_name": "Ergun",
+    "email": "stayfo@awesome-startup.com",
+    "password": "Il0veTheB34ch",
+    "course": "5fa9abd13060481a0e68e2ee"
 }
 
 ###
 
 GET http://localhost:3000/student
-
+Authorization: Bearer eyJpjdowih;dougwPIUGIUGFGPW
 
 ###
 
-GET http://localhost:3000/student/5fa3c5f801dc3682eaca4b07
+GET http://localhost:3000/student/5faa6273551174b4e3f90ad3
 
 ###
 
@@ -32,10 +35,40 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/student
+DELETE http://localhost:3000/student/5fa9a887d5bf9a023afc6799
+
+###
+
+DELETE http://localhost:3000/student/all
 Content-Type: application/json
 
 {
-    "condition": "last_name",
-    "value": "Drews"
+    "condition": "course",
+    "value": "5fa9abd13060481a0e68e2ee"
 }
+
+###
+
+POST http://localhost:3000/course
+Content-Type: application/json
+
+{
+    "course_name": "Web Development Bootcamp",
+    "batch": "August 2020",
+    "organization": "WBS"
+}
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "imo@awesome-startup.com",
+    "password": "Il0veChick3ns"
+}
+
+###
+
+GET http://localhost:3000/student
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhNjI3MzU1MTE3NGI0ZTNmOTBhZDMiLCJlbWFpbCI6Imltb0Bhd2Vzb21lLXN0YXJ0dXAuY29tIiwiaWF0IjoxNjA1MDExMzk2LCJleHAiOjE2MDUwMTQ5OTZ9.DN-31jZ-iawPNDIZ4eOi9Rxv3aJTIbwEPN6Zp6BPxgY
