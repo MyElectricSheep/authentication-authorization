@@ -9,7 +9,7 @@ const userSchema = new Schema({
     last_updated: {type: Date, default: Date.now},
     email: {type: String, min: 2, max: 50, required: true},
     password: {type: String, required: true},
-    // auction: { type: Schema.Types.ObjectId, ref: 'auction', required: true }
+    role: {type: String, default: basic, enum: [“basic", "transporter", "admin"]}
 })
 
 userSchema.methods.createToken = function() {

@@ -7,6 +7,7 @@ const logger = require('morgan');
 
 const userRouter = require('./routes/users');
 const auctionRouter = require('./routes/auctions')
+const bidRouter = require('/routes/bids')
 const adminRouter = require('./routes/admins')
 const transporterRouter = require('./routes/transporters')
 const authenticationRouter = require('./routes/authentication')
@@ -27,6 +28,7 @@ app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/transporter', transporterRouter);
 app.use('/auction', auctionRouter);
-app.use('/auth', authenticationRouter)
+app.use('/bids', bidRouter);
+app.use('/auth', authenticationRouter);
 
 module.exports = app;
