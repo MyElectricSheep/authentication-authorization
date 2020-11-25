@@ -1,6 +1,6 @@
 {
-  "name": "node-mongoose-course-august",
-  "version": "0.0.0",
+  "name": "transporex-backend",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
