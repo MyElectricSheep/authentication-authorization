@@ -4,12 +4,38 @@ const jwt = require('jsonwebtoken')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    first_name: {type: String, min: 2, max: 50, required: true},
-    last_name: {type: String, min: 2, max: 50, required: true},
-    last_updated: {type: Date, default: Date.now},
-    email: {type: String, min: 2, max: 50, required: true},
-    password: {type: String, required: true},
-    role: {type: String, default: basic, enum: [“basic", "transporter", "admin"]}
+
+    first_name: {
+        type: String, 
+        min: 2, 
+        max: 50, 
+        required: true
+    },
+    last_name: {
+        type: String, 
+        min: 2, 
+        max: 50, 
+        required: true
+    },
+    last_updated: {
+        type: Date, 
+        default: Date.now
+    },
+    email: {
+        type: String, 
+        min: 2, 
+        max: 50, 
+        required: true
+    },
+    password: {
+        type: String, 
+        required: true
+    },
+    role: {
+        type: String, 
+        default: 'basic', 
+        // enum: [“basic", "transporter", "admin"]
+    },
 })
 
 userSchema.methods.createToken = function() {

@@ -6,3 +6,38 @@ exports.create_auction = (req, res) => {
         .then(data => res.json(data))
         .catch(err => console.error(err))
 }
+
+exports.list_auctions = (req, res) => {
+    console.log(req.userPayload)
+      Auction.find()
+        .then(data => res.json(data))
+        .catch(err => console.error(err.message))
+    }
+  
+  exports.find_auction = (req, res) => {
+      const { id } = req.params
+      Auction.findById(id).populate('auctions')
+        .then(data => res.json(data))
+        .catch(err => console.error(err.message))
+    }
+  
+  exports.update_auction = (req, res) => {
+      const { old_description, new_description } = req.body
+      Auction.updateOne({ auction_description : old_description }, { auction_description : new_description })
+        .then(data => res.json(data))
+        .catch(err => console.error(err.message))
+    }
+  
+  exports.delete_auction = (req, res) => {
+      const { id } = req.params
+      Auction.deleteOne({ _id: id })
+        .then(data => res.json(data))
+        .catch(err => console.error(err.message))
+    }
+  
+  exports.delete_auction = (req, res) => {
+      const { condition, value } = req.body
+      Auction.deleteMany({[condition]: value})
+        .then(data => res.json(data))
+        .catch(err => console.error(err.message))
+  }

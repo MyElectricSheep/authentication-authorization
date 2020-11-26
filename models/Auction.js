@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const auctionSchema = new Schema({
-    "auction_id": "new mongoose.Types.ObjectId",
+    // "auction_id": "new mongoose.Types.ObjectId",
     "auction_title": "String",
     "auction_description": "String",
     "auction_category": "Map",
