@@ -1,50 +1,52 @@
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+// This could have been used with Mongoose
 
-const Schema = mongoose.Schema
+// const mongoose = require('mongoose');
+// const jwt = require('jsonwebtoken');
 
-const userSchema = new Schema({
+// const Schema = mongoose.Schema
 
-    first_name: {
-        type: String, 
-        min: 2, 
-        max: 50, 
-        required: true
-    },
-    last_name: {
-        type: String, 
-        min: 2, 
-        max: 50, 
-        required: true
-    },
-    last_updated: {
-        type: Date, 
-        default: Date.now
-    },
-    email: {
-        type: String, 
-        min: 2, 
-        max: 50, 
-        required: true
-    },
-    password: {
-        type: String, 
-        required: true
-    },
-    role: {
-        type: String, 
-        default: 'basic', 
-        // enum: [“basic", "transporter", "admin"]
-    },
-})
+// const userSchema = new Schema({
 
-userSchema.methods.createToken = function() {
-    const payload = { _id: this._id, email: this.email }
-    const secretKey = process.env.JWT_SECRET
-    const token = jwt.sign(payload, secretKey, { expiresIn: "1h"})
-    return token
-}
+//     first_name: {
+//         type: String, 
+//         min: 2, 
+//         max: 50, 
+//         required: true
+//     },
+//     last_name: {
+//         type: String, 
+//         min: 2, 
+//         max: 50, 
+//         required: true
+//     },
+//     last_updated: {
+//         type: Date, 
+//         default: Date.now
+//     },
+//     email: {
+//         type: String, 
+//         min: 2, 
+//         max: 50, 
+//         required: true
+//     },
+//     password: {
+//         type: String, 
+//         required: true
+//     },
+//     role: {
+//         type: String, 
+//         default: 'user', 
+//         //enum: [“basic", "transporter", "admin"]
+//     },
+// })
 
-const User = mongoose.model('User', userSchema)
+// userSchema.methods.createToken = function() {
+//     const payload = { _id: this._id, email: this.email }
+//     const secretKey = process.env.JWT_SECRET
+//     const token = jwt.sign(payload, secretKey, { expiresIn: "1h"})
+//     return token
+// }
 
-module.exports = User
+// const User = mongoose.model('User', userSchema);
+
+// module.exports = User;

@@ -1,4 +1,4 @@
-
+// Routes for Users
 
 const express = require('express');
 const userRouter = express.Router();
@@ -8,11 +8,11 @@ const authorizeUser = require('../middlewares/authorizeUser')
 const authorizeAdmin = require('../middlewares/authorizeAdmin')
 const authorizeTransporter = require('../middlewares/authorizeTransporter')
 
-userRouter.get('/', authorizeUser, authorizeAdmin, userController.list_users)
-userRouter.get('/:id', authorizeTransporter, authorizeAdmin,userController.find_user)
-userRouter.post('/', authorizeUser, authorizeAdmin, userController.create_user)
-userRouter.put('/', authorizeUser, authorizeAdmin, userController.update_user)
-userRouter.delete('/all', authorizeUser, authorizeAdmin, userController.delete_users)
-userRouter.delete('/:id', authorizeUser, authorizeAdmin, userController.delete_user)
+userRouter.get('/', authorizeUser, authorizeAdmin, userController.getAll) // get all users
+userRouter.get('/:id', authorizeTransporter, authorizeAdmin, userController.getOne) // get one user
+userRouter.post('/', authorizeUser, authorizeAdmin, userController.createUser) // create a user
+userRouter.put('/', authorizeUser, authorizeAdmin, userController.updateUser) // update a user
+userRouter.delete('/all', authorizeUser, authorizeAdmin, userController.deleteAllUers) // delete all users
+userRouter.delete('/:id', authorizeUser, authorizeAdmin, userController.deleteUser) // delete a user
 
 module.exports = userRouter;

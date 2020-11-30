@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const authorizeTransporter = (req, res, next) => {
     const authHeader = req.headers['authorization']
@@ -12,4 +12,4 @@ const authorizeTransporter = (req, res, next) => {
     })
 }
 
-module.exports = authorizeTransporter
+module.exports = authorizeTransporter;

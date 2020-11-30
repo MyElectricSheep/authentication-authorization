@@ -6,10 +6,10 @@ const authorizeTransporter = require('../middlewares/authorizeTransporter')
 
 const auctionController = require('../controllers/auctionController')
 
-auctionRouter.post('/', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.create_auction)
-auctionRouter.get('/:id', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.find_auction)
-auctionRouter.get('/', authorizeUser,authorizeTransporter, authorizeAdmin, auctionController.list_auctions)
-auctionRouter.put('/', authorizeAdmin, auctionController.update_auction)
-auctionRouter.delete('/:id', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.delete_auction)
+auctionRouter.get('/:id', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.getOne) // get a single auction
+auctionRouter.get('/', authorizeUser,authorizeTransporter, authorizeAdmin, auctionController.getAll)
+auctionRouter.post('/', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.createAuction)
+auctionRouter.put('/', authorizeAdmin, auctionController.updateAuction)
+auctionRouter.delete('/:id', authorizeAdmin, auctionController.deleteAuction)
 
 module.exports = auctionRouter;

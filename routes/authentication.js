@@ -6,8 +6,8 @@ const adminAuthenticationController = require('../controllers/adminAuthenticatio
 const transporterAuthenticationController = require('../controllers/transporterAuthenticationController')
 
 // POST /auth/login
-userAuthenticationRouter.post('/login', userAuthenticationController.login)
-adminAuthenticationRouter.post('/login', adminAuthenticationController.login)
-transporterAuthenticationRouter.post('/login', transporterAuthenticationController.login)
+authenticationRouter.post('/user/login', userAuthenticationController.login)
+authenticationRouter.post('/admin/login', adminAuthenticationController.login)
+authenticationRouter.post('/transporter/login', transporterAuthenticationController.login)
 
 module.exports = authenticationRouter;

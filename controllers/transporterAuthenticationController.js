@@ -9,3 +9,4 @@ exports.login = async (req, res) => {
     if (!match) return res.status(400).send('Invalid Credentials') // bad request
     const token = transporter.createToken()
     res.set('x-authorization-token', token).send("Login successful!")
+}

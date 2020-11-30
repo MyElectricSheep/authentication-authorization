@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const authorizeAdmin = (req, res, next) => {
     const authHeader = req.headers['authorization']
@@ -12,4 +12,4 @@ const authorizeAdmin = (req, res, next) => {
     })
 }
 
-module.exports = authorizeAdmin
+module.exports = authorizeAdmin;
