@@ -2,60 +2,73 @@ GET http://localhost:3000/
 
 ###
 
-POST http://localhost:3000/student
+POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "first_name": "Istayfo",
-    "last_name": "Ergun",
-    "email": "stayfo@awesome-startup.com",
-    "password": "Il0veTheB34ch",
-    "course": "5fa9abd13060481a0e68e2ee"
+    "first_name": "max",
+    "last_name": "Musterman",
+    "email": "max-mustermann@test.com",
+    "password": "Maxtesting2",
 }
 
 ###
 
-GET http://localhost:3000/student
-Authorization: Bearer eyJpjdowih;dougwPIUGIUGFGPW
+# GET http://localhost:3000/user
+# Authorization: Bearer eyJpjdowih;dougwPIUGIUGFGPW
 
 ###
 
-GET http://localhost:3000/student/5faa6273551174b4e3f90ad3
+GET http://localhost:3000/user
 
 ###
 
-PUT http://localhost:3000/student
+PUT http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "old_name": "Drews",
-    "new_name": "Pikachu"
+    "old_name": "Max",
+    "new_name": "Müller"
 }
 
 
 ###
 
-DELETE http://localhost:3000/student/5fa9a887d5bf9a023afc6799
+DELETE http://localhost:3000/user
 
 ###
 
-DELETE http://localhost:3000/student/all
+DELETE http://localhost:3000/user/all
 Content-Type: application/json
 
 {
-    "condition": "course",
-    "value": "5fa9abd13060481a0e68e2ee"
+    "condition": "removals",
+    "value": "int"
 }
 
 ###
 
-POST http://localhost:3000/course
+POST http://localhost:3000/auction
 Content-Type: application/json
 
 {
-    "course_name": "Web Development Bootcamp",
-    "batch": "August 2020",
-    "organization": "WBS"
+    "auction_id": "0998777",
+    "auction_title": "move from France to Berlin",
+    "auction_description": "looking for a good moving company",
+    "auction_category": "Removals",
+    "auction_budget": "3000 EUR",
+    "auction_volume": "20cbm",
+    "auction_timeline": "20.11 - 22.12.2020",
+    # auction_move_from: String,
+    # auction_move_to: String,
+    # auction_move_from_postcode: Number,
+    # auction_move_to_postcode: Number,
+    # auction_move_from_city: String,
+    # auction_move_to_city: String,
+    # auction_move_from_country: String,
+    # auction_move_to_country: String,
+    # move_on: Date,
+    # deliver_on: Date,"
 }
 
 ###
@@ -64,11 +77,11 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "imo@awesome-startup.com",
-    "password": "Il0veChick3ns"
+    "email": "testing@transporex.com",
+    "password": "331Ebl!!"
 }
 
-###
+# ##
 
-GET http://localhost:3000/student
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhNjI3MzU1MTE3NGI0ZTNmOTBhZDMiLCJlbWFpbCI6Imltb0Bhd2Vzb21lLXN0YXJ0dXAuY29tIiwiaWF0IjoxNjA1MDExMzk2LCJleHAiOjE2MDUwMTQ5OTZ9.DN-31jZ-iawPNDIZ4eOi9Rxv3aJTIbwEPN6Zp6BPxgY
+# GET http://localhost:3000/user
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFhNjI3MzU1MTE3NGI0ZTNmOTBhZDMiLCJlbWFpbCI6Imltb0Bhd2Vzb21lLXN0YXJ0dXAuY29tIiwiaWF0IjoxNjA1MDExMzk2LCJleHAiOjE2MDUwMTQ5OTZ9.DN-31jZ-iawPNDIZ4eOi9Rxv3aJTIbwEPN6Zp6BPxgY
