@@ -9,7 +9,7 @@ transporterRouter.get('/', authorizeTransporter, authorizeAdmin, transporterCont
 transporterRouter.get('/:id', transporterController.getOne)
 transporterRouter.post('/', authorizeTransporter, authorizeAdmin, transporterController.createTransporter)
 transporterRouter.put('/', authorizeTransporter, authorizeAdmin, transporterController.updateTransporter)
-transporterRouter.delete('/all', authorizeTransporter, authorizeAdmin, transporterController.deleteTransporters)
+// transporterRouter.delete('/all', authorizeTransporter, authorizeAdmin, transporterController.deleteTransporters)
 transporterRouter.delete('/:id', authorizeTransporter, authorizeAdmin, transporterController.deleteTransporter)
 
 module.exports = transporterRouter;

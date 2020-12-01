@@ -1,7 +1,7 @@
 // const Transporter = require('../models/Transporter')  //========ACtivate this when using Mongoose========//
 
 const bcrypt = require('bcrypt')
-const client = require('./database/client');
+const client = require('./../database/client');
 
 
 

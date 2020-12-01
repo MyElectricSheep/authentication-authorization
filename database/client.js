@@ -1,26 +1,57 @@
-const { Pool } = require('pg');
-const pool = new Pool();
+const { Pool, Client } = require('pg');
 
-let pool
+const pool = new Pool()
 
-if (process.env.NODE_ENV === 'production') {
-    const connectionString = process.env.DATABASE_URL
+const client = new Client({
 
-    pool = new pool ({
-        connectionString
-    })
-} else {
-    pool = new pool()
-}
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+    rejectUnauthorized: false
+    }
+})
 
-
-module.exports =  {
-    query: (text, params, callback) => {
+client.connect();
+module.exports = {
+        query: (text, params, callback) => {
         return pool.query(text, params, callback)
+        },
+    }
 
-},
+module.exports = client;
 
-}
+
+
+// const { Pool } = require('pg');
+
+// const connectionString = 'postgres://lbcmnxetaayywj:e43406e43061e8e196172f17f1e064473ab55cb2ad1b696f8057826e863c283d@ec2-54-75-199-252.eu-west-1.compute.amazonaws.com:5432/d1coaqmlghv91i'
+
+// const pool = new Pool({
+//   connectionString,
+
+// })
+
+// // const pool = new Pool();
+
+// // let pool
+
+// if (process.env.NODE_ENV === 'production') {
+//     //const connectionString = 'postgres://lbcmnxetaayywj:e43406e43061e8e196172f17f1e064473ab55cb2ad1b696f8057826e863c283d@ec2-54-75-199-252.eu-west-1.compute.amazonaws.com:5432/d1coaqmlghv91i'
+
+//     pool = new pool ({
+//         connectionString
+//     })
+// } else {
+//     pool = new pool()
+// }
+
+
+// module.exports =  {
+//     query: (text, params, callback) => {
+//         return pool.query(text, params, callback)
+
+// },
+
+// }
 
 
 

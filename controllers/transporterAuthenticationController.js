@@ -1,4 +1,5 @@
-const Transporter = require('../models/Transporter')
+// const Transporter = require('../models/Transporter') // activate when using Mongoose
+
 const bcrypt = require('bcrypt')
 
 exports.login = async (req, res) => {

@@ -1,16 +1,16 @@
 // const User = require('../models/User'); // This was used for Mongoose version (Activate when using Mongoose)
 const bcrypt = require('bcrypt');
-const client = require('./database/client');
+const client = require('./../database/client');
 
 
-  module.exports.getAll: (req, res) => {
+  module.exports.getAll= (req, res) => {
     client
       .query("SELECT * FROM users")
       .then((data) => res.json(data.rows))
       .catch((e) => console.log(e));
-  },
+  }
 
-  module.exports.getOne: (req, res) => {
+  module.exports.getOne= (req, res) => {
     const { id } = req.params
     client
     .query('SELECT * FROM users WHERE id=$1', [id])
@@ -19,10 +19,10 @@ const client = require('./database/client');
       res.status(200).json(data.rows)
     })
     .catch((err)=> console.error(err.message))
-  },
+  }
 
 
-    module.exports.createUser: async(req, res)=> {
+    module.exports.createUser= async(req, res)=> {
       const { first_name, last_name, email, tel_num, address, post_code, city, state, country, password } = req.body;
   
     try {
@@ -33,7 +33,9 @@ const client = require('./database/client');
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
       RETURNING *
       `;
-      const values = [first_name, last_name, email, tel_num, address, post_code, city, state, country, password: await bcrypt.hash(password, 10)];
+
+      const password= await bcrypt.hash(password, 10)
+      const values = [first_name, last_name, email, tel_num, address, post_code, city, state, country, password];
   
       client
       .query(sqlQuery, values)
@@ -44,7 +46,7 @@ const client = require('./database/client');
     }
   }
   
-  module.exports.updateUser: (req, res) => {
+  module.exports.updateUser= (req, res) => {
     const { id } = req.params;
     const { first_name, last_name, address, city, country, tel_num, email } = req.body;
 
@@ -72,10 +74,10 @@ const client = require('./database/client');
         console.log(e);
         res.sendStatus(500);
       });
-  },
+  }
 
 
-    module.exports.deleteUser: (req, res) => {
+    module.exports.deleteUser= (req, res) => {
     const { id } = req.params;
 
     const sqlQuery = `
@@ -93,8 +95,19 @@ const client = require('./database/client');
       });
   }
 
+  module.exports.getAll= (req, res) => {
+    const { id } = req.params;
+    db.query(`
+    SELECT u.first_name, u.last_name, bid.price, contract.date
+    FROM users u
+    JOIN contract c
+    ON u.id = c.user_id
+    WHERE u.id = $1
+    `, [id])
+    .then(data => res.json(data.rows))
+    .catch(err => console.error(err))
+}
 
-module.exports = UserController;
 
 
 

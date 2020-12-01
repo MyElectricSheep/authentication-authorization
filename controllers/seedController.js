@@ -1,4 +1,4 @@
-const db = require("../dabatase/client");
+const db = require("./../database/client");
 
 module.exports.create = async (req, res, next) => {
   const query = `
@@ -21,7 +21,7 @@ module.exports.create = async (req, res, next) => {
     );
     CREATE TABLE transporter (
         id SERIAL NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        UNIQUE (name)
         picture VARCHAR(255),
         city_id int NOT NULL,
         category varchar (20) [NOT NULL]
@@ -34,7 +34,7 @@ module.exports.create = async (req, res, next) => {
         fax varchar(100) [not null] 
         website varchar(255) 
         owner_date_of_birth date [not null]
-        company_reg_date timestampz [not null, default: `now()`] 
+        company_reg_date timestampz [not null, default: now()] 
         company_vat_id varchar(100) 
         company_logo varchar(255) 
         registered_company_id varchar
@@ -51,13 +51,17 @@ module.exports.create = async (req, res, next) => {
         PRIMARY KEY (id),
         CONSTRAINT fk_city_id FOREIGN KEY (city_id) REFERENCES city (id) ON DELETE CASCADE
     );
+
     CREATE TABLE review (
         id SERIAL PRIMARY KEY,
         transporter_id int NOT NULL,
-        review TEXT NOT NULL,
+        auction_id int NOT NULL
+        description TEXT NOT NULL,
+        rating ENUM
         published_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_transporter_id FOREIGN KEY (transporter_id) REFERENCES transporter (id) ON DELETE CASCADE
     );
+
     CREATE TABLE transporter_has_category (
         transporter_id INT NOT NULL,
         category_id INT NOT NULL,
@@ -65,6 +69,30 @@ module.exports.create = async (req, res, next) => {
         FOREIGN KEY(transporter_id) REFERENCES transporter(id) ON DELETE CASCADE,
         FOREIGN KEY(category_id) REFERENCES category(id) ON DELETE CASCADE
     );
+
+    CREATE TABLE auction {
+      auction_id bigserial [pk, increment] // primary key
+      user_id int [ref: > U.user_id]
+      status varchar
+      start_date timestampz [not null, default: now()]
+      ends_date timestampz
+      title varchar
+      description text
+      category varchar
+      budget int
+      volume int
+      move_from_address varchar
+      move_to_address varchar
+      move_from_postcode varchar
+      move_to_postcode varchar
+      move_from_city varchar
+      move_from_country varchar
+      move_to_city varchar
+      move_to_country varchar
+      move_on date
+      deliver_on date
+      awarded_date timestampz
+    }
     `;
   try {
     await db.query(query);
@@ -80,9 +108,10 @@ module.exports.seed = async (req, res, next) => {
     const deleteQuery = `
     DELETE FROM city RETURNING *;
     DELETE FROM review RETURNING *;
+    DEELTE FROM auction RETURNING *;
 `;
 
-    const [{ rows: cityDeleteRows }, { rows: categoryDeleteRows }] = await db
+    const [{ rows: cityDeleteRows }, { rows: categoryDeleteRows }, { rows: auctionDeleteRows }] = await db
       .query(deleteQuery)
       .catch((e) => console.log({ deleteQuery: e.message }));
 
@@ -130,10 +159,30 @@ module.exports.seed = async (req, res, next) => {
     //     }
     //    ]
 
-    const genRandomCityId = () => {
-      const possibleIds = cityRows.map((city) => city.id);
-      return possibleIds[Math.floor(Math.random() * possibleIds.length)];
-    };
+    const auctionQuery = `
+      INSERT INTO auction (category) VALUES
+      ('Removals'), ('Cargo'), ('Containers & TLD'), ('Car Transport')
+      RETURNING *;
+    `;
+
+    const { rows: auctionRows } = await db
+      .query(auctionQuery)
+      .catch((e) => console.log({ auctionSeedError: e.message }))
+
+      const genRandomAuctionId = () => {
+        const possibleIds = auctionRows.map((auction) => auction.id);
+        return possibleIds[Math.floor(Math.random() * possibleIds.length)];
+      };
+
+
+    // const { rows: cityRows } = await db
+    //   .query(cityQuery)
+    //   .catch((e) => console.log({ citySeedError: e.message }));
+
+    // const genRandomCityId = () => {
+    //   const possibleIds = cityRows.map((city) => city.id);
+    //   return possibleIds[Math.floor(Math.random() * possibleIds.length)];
+    // };
 
     const transporterQuery = `
     INSERT INTO transporter (name, picture, city_id) VALUES
@@ -264,6 +313,7 @@ module.exports.destroy = async (req, res, next) => {
         DROP TABLE IF EXISTS category;
         DROP TABLE IF EXISTS transporter;
         DROP TABLE IF EXISTS city;
+        DROP TABLE IF EXISTS auction;
     `;
   try {
     await db.query(nukeQuery);
@@ -272,3 +322,6 @@ module.exports.destroy = async (req, res, next) => {
     console.log({ destroyDatabaseError: e.message });
   }
 };
+
+
+

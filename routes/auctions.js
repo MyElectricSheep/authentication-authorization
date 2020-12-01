@@ -9,7 +9,7 @@ const auctionController = require('../controllers/auctionController')
 auctionRouter.get('/:id', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.getOne) // get a single auction
 auctionRouter.get('/', authorizeUser,authorizeTransporter, authorizeAdmin, auctionController.getAll)
 auctionRouter.post('/', authorizeUser, authorizeTransporter, authorizeAdmin, auctionController.createAuction)
-auctionRouter.put('/', authorizeAdmin, auctionController.updateAuction)
+// auctionRouter.put('/', authorizeAdmin, auctionController.updateAuction)
 auctionRouter.delete('/:id', authorizeAdmin, auctionController.deleteAuction)
 
 module.exports = auctionRouter;

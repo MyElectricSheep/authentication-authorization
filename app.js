@@ -10,20 +10,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 
 // Routes import
-const seedRouter = require('.routes/seeds')
-const userRouter = require('./routes/users');
-const auctionRouter = require('./routes/auctions');
-const bidRouter = require('./routes/bids');
-const reviewRouter = require('.routes/reviews');
-const contractRouter = require('.routes/contracts');
-const login = require('./routes/login');
-const adminRouter = require('./routes/admins');
-const transporterRouter = require('./routes/transporters');
-const authenticationRouter = require('./routes/authentication');
+ const seedRouter = require('./routes/seeds')
+ const userRouter = require('./routes/users');
+ const auctionRouter = require('./routes/auctions');
+ const bidRouter = require('./routes/bids');
+ const reviewRouter = require('./routes/reviews');
+ 
+// const contractRouter = require('./routes/contract');
+ const login = require('./routes/login');
+ const adminRouter = require('./routes/admins');
+ const transporterRouter = require('./routes/transporters');
+ const authenticationRouter = require('./routes/authentication');
 
-// const userAuthenticationRouter = require('./routes/userAuthentication')
-// const adminAuthenticationRouter = require('./routes/adminAuthentication')
-// const transporterAuthenticationRouter = require('./routes/transporterAuthentication')
 
 const app = express();
 
@@ -46,7 +44,7 @@ app.all('*', function(req, res, next){
 
 app.use('/', login);
 app.use('/reviews', reviewRouter);
-app.use('/contract', contractRouter);
+// app.use('/contract', contractRouter);
 app.use('/seed', seedRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);

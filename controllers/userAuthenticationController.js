@@ -1,4 +1,5 @@
-const User = require('../models/User')
+// const User = require('../models/User')  // only useful when using Mongoose
+
 const bcrypt = require('bcrypt')
 
 exports.login = async (req, res) => {

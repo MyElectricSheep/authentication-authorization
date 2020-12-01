@@ -9,13 +9,11 @@ const authorizeUser = require('../middlewares/authorizeUser')
 
 
 
-bidRouter.post('/', authorizeTransporter, authorizeAdmin, bidController.createBid)
+bidRouter.post('/add', authorizeTransporter, authorizeAdmin, bidController.create)
 bidRouter.get('/:id', authorizeUser, authorizeTransporter, authorizeAdmin, bidController.getOne)
 bidRouter.get('/', authorizeTransporter, authorizeAdmin, bidController.getAll)
-bidRouter.put('/', authorizeTransporter, authorizeAdmin, bidController.updateBid)
-bidRouter.delete('/:id', authorizeTransporter, authorizeAdmin, bidController.deleteBid)
-bidRouter.delete('/all', authorizeTransporter, authorizeAdmin, bidController.deleteAllBids)
-bidRouter.get('/history', authorizeTransporter, authorizeAdmin, bidController.bidsHistory)
-bidRouter.post('/getlatest', authorizeTransporter, authorizeAdmin, bidController.latestBids)
+// bidRouter.put('/', authorizeTransporter, authorizeAdmin, bidController.update)
+bidRouter.delete('/:id', authorizeTransporter, authorizeAdmin, bidController.delete)
+// bidRouter.get('/history', authorizeTransporter, authorizeAdmin, bidController.bidsHistory)
 
 module.exports = bidRouter;

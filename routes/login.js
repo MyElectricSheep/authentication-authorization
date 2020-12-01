@@ -4,8 +4,8 @@ const express = require('express');
 const loginRouter = express.Router();
 const loginController = require('../controllers/loginController');
 
-router.get('/', loginController.get)
-router.post('/logpost', loginController.post)
+loginRouter.get('/', loginController.get)
+loginRouter.post('/logpost', loginController.post)
 
 
 

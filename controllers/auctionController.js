@@ -1,14 +1,15 @@
-const Auction = require('../models/Auction');
-const client = require('./database/client');
+// const Auction = require('../models/Auction'); // use for Mongoose
+
+const client = require('./../database/client');
 
 
 /* GET users listing. */
-autionRouter.get('/', function(req, res, next) {
+module.exports.getAll=(req, res, next) => {
     res.send('auctions');
-});
+},
 
 
-auctionRouter.get('/api/all', function(req, res, next) {
+module.exports.getAll=(req, res, next) =>{
     const results = [];
 
     pg.connect(connectionString, function(err, client, done) {
@@ -32,9 +33,9 @@ auctionRouter.get('/api/all', function(req, res, next) {
             return res.json(results);
         });
     });
-});
+};
 
-auctionRouter.get('/api/auctions/:id', (req, res) =>{
+module.exports.getOne= (req, res) =>{
   const { id } = req.params;
   client
   db.query('SELECT * FROM auctions WHERE id=$1', [id])
@@ -43,11 +44,11 @@ auctionRouter.get('/api/auctions/:id', (req, res) =>{
     res.status(200).json(data.rows)
   })
   .catch((err)=> console.error(err.message))
-})
+},
 
 
 
-auctionRouter.get('/api/current', function(req, res, next) {
+module.exports.getAll=(req, res, next) =>{
     const results = [];
 
     pg.connect(connectionString, function(err, client, done) {
@@ -69,10 +70,10 @@ auctionRouter.get('/api/current', function(req, res, next) {
             return res.json(results);
         });
     });
-});
+};
 
 
-auctionRouter.post('/api/new', function(req, res, next) {
+module.exports.createAuction=(req, res, next) =>{
     const results = [];
     // Get a Postgres client from the connection pool
 
@@ -106,7 +107,7 @@ auctionRouter.post('/api/new', function(req, res, next) {
             "values($1, $2, $3, $4, $5, $6, $7, $8)",
             [data.auction_id, data.auction.description, data.auction_title, data.auction_budget, data.auction_timeline, data.auction_start_time, curr_date, data.auction_category]);
 
-        data.transporters.forEach(function (transporter) {
+        data.transporter.forEach(function (transporter) {
             client.query("INSERT INTO auction_transporters (auction_id, user_id) values ($1, $2)", [data.auction_id, transporter]);
         });
 
@@ -115,8 +116,8 @@ auctionRouter.post('/api/new', function(req, res, next) {
         });
 
         data.auction_val.forEach(function (auc_val) {
-            client.query("INSERT INTO bid (auction_id, transporter_id,time,bid_amount) VALUES ($1,$2,$3,$4)",
-                [data.auction_id,auc_val.auction_id,data.user_id,getTime(),auc_val.value]);
+            client.query("INSERT INTO bid (auction_id, transporter_id, time, bid_amount) VALUES ($1, $2, $3, $4)",
+                [data.auction_id, auc_val.auction_id, data.user_id, getTime(), auc_val.value]);
         });
 
 
@@ -131,9 +132,9 @@ auctionRouter.post('/api/new', function(req, res, next) {
             return res.json({"msg": 'Auction added successfully'});
         });
     });
-});
+};
 
-auctionRouter.post('/edit', function(req, res, next) {
+module.exports.createAuction=(req, res, next) =>{
 
     const auction_data = [];
     const categorys = [];
@@ -153,19 +154,19 @@ auctionRouter.post('/edit', function(req, res, next) {
         }
         // SQL Query > Select Data
         const query1 = client
-        .query("SELECT * FROM auctions WHERE auction_id=($1)", [data.auction_id]);
+        .query("SELECT * FROM auction WHERE auction_id=($1)", [data.auction_id]);
         query1.on('row', function(row) {
             auction_data.push(row);
         });
 
         const query2 = client
-        .query("SELECT user_id, last_name, first_name FROM users WHERE user_id in (SELECT user_id FROM auction_transporters WHERE auction_id=($1))", [data.auction_id]);
+        .query("SELECT user_id, last_name, first_name FROM user WHERE user_id in (SELECT user_id FROM auction_transporter WHERE auction_id=($1))", [data.auction_id]);
         query2.on('row', function(row) {
             transporters.push(row);
         });
 
         var query3 = client
-        .query("SELECT auction_id, auction_title FROM categorys WHERE auction_id in (SELECT auction_id from auction_category WHERE auction_id=($1))", [data.auc_id]);
+        .query("SELECT auction_id, auction_title FROM category WHERE auction_id in (SELECT auction_id from auction_category WHERE auction_id=($1))", [data.auction_id]);
         query3.on('row', function(row) {
             categorys.push(row);
         });
@@ -173,15 +174,15 @@ auctionRouter.post('/edit', function(req, res, next) {
         // After all data is returned, close connection and return results
         query3.on('end', function() {
             done();
-            auc_data.push(transporters);
-            auc_data.push(auctions);
-            return res.json(auc_data);
+            auction_data.push(transporters);
+            auction_data.push(auctions);
+            return res.json(auction_data);
         });
     });
-});
+};
 
 
-auctionRouter.post('/api/del', function(req, res, next) {
+module.exports.deleteAuction=(req, res, next) =>{
     const results = [];
     // Get a Postgres client from the connection pool
     const data = { uid: req.body.auction_id};
@@ -209,12 +210,12 @@ auctionRouter.post('/api/del', function(req, res, next) {
             done();
             // console.log(results);
             // return res.json(results[0].password);
-            return res.json({"msg": 'Auction deleted successfully'});
+            return res.json({"msg": 'Auction successfully deleted'});
         });
     });
-});
+};
 
-auctionRouter.get('/api/search', function(req, res, next) {
+module.exports.getAll=(req, res, next) => {
     const results = [];
     // Get a Postgres client from the connection pool
     const data = {
@@ -244,18 +245,19 @@ auctionRouter.get('/api/search', function(req, res, next) {
             return res.json(results);
         });
     });
-});
+};
 
-auctionRouter.delete('/api/auctions/:id', (req, res) => {
+
+module.exports.deleteAuction=(req, res) => {
   const { id } = req.params;
   client
-  .query("DELETE FROM auctionss WHERE id=$1 RETURNING *", [id])
+  .query("DELETE FROM auction WHERE id=$1 RETURNING *", [id])
   .then((data)=> res.json(data.rows))
   .catch((err)=> console.error(err));
-})
+}
 
 
-auctionRouter.get('/api/initial', function(req, res, next) {
+module.exports.getAll=(req, res, next) => {
     const results = [];
     // Get a Postgres client from the connection pool
 
@@ -267,7 +269,7 @@ auctionRouter.get('/api/initial', function(req, res, next) {
             return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
-        const query = client.query("SELECT auction_id,auction_title, auction_category, due_date FROM AUCTION");
+        const query = client.query("SELECT auction_id, auction_title, auction_category, due_date FROM AUCTION");
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
@@ -279,7 +281,9 @@ auctionRouter.get('/api/initial', function(req, res, next) {
             return res.json(results);
         });
     });
-});
+};
+
+
 
 function getTime() {
     const date = new Date();

@@ -3,11 +3,11 @@ const pg = require('pg');
 const router = express.Router();
 
 
-router.get('/', function(req, res) {
+module.exports.get=(req, res) => {
     res.sendFile(__dirname + '/form/login');
-});
+};
 
-router.post('/logpost', function(req, res, next) {
+module.exports.post=(req, res, next) =>{
     const results = [];
     // Get a Postgres client from the connection pool
     const data = {first_name: req.body.first_name, last_name: req.body.last_name, password: req.body.password};
@@ -44,11 +44,11 @@ router.post('/logpost', function(req, res, next) {
                 } else if (results[0].role.toUpperCase() == 'USER') {
                     res.sendFile(__dirname + '/user_pages/index');
                 }
-                req.x-authorization-token.userID = req.body.userID;
+                req.x_authorization_token.userID = req.body.userID;
             } else {
 
                 return res.redirect('/page/404');
             }
         });
     });
-});
+};

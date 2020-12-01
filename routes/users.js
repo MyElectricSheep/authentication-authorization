@@ -12,7 +12,8 @@ userRouter.get('/', authorizeUser, authorizeAdmin, userController.getAll) // get
 userRouter.get('/:id', authorizeTransporter, authorizeAdmin, userController.getOne) // get one user
 userRouter.post('/', authorizeUser, authorizeAdmin, userController.createUser) // create a user
 userRouter.put('/', authorizeUser, authorizeAdmin, userController.updateUser) // update a user
-userRouter.delete('/all', authorizeUser, authorizeAdmin, userController.deleteAllUers) // delete all users
+userRouter.delete('/all', authorizeUser, authorizeAdmin, userController.deleteUser) // delete all users
 userRouter.delete('/:id', authorizeUser, authorizeAdmin, userController.deleteUser) // delete a user
+// userRouter.delete('/:id/orders', authorizeUser, authorizeAdmin, userController.getOrdersUser) 
 
 module.exports = userRouter;
